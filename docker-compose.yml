@@ -1,0 +1,18 @@
+version: '2.20.3'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 18081971
+      POSTGRES_DB: fst_user_segments
+    volumes:
+    - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+  app:
+    build: .
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
